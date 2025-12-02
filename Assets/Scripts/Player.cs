@@ -3,10 +3,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
-    public float MoveSpeed { get => moveSpeed; private set => moveSpeed = value; }
+    public float MoveSpeed { get => moveSpeed; private set => moveSpeed = value; } //Property
 
     [SerializeField] private bool isInvulnerable = false;
-    public bool IsInvulnerable { get => isInvulnerable; private set => isInvulnerable = value; }
+    public bool IsInvulnerable { get => isInvulnerable; private set => isInvulnerable = value; } //Property
 
     private float jumpForce = 10f;
 
@@ -39,8 +39,13 @@ public class Player : MonoBehaviour
         IsInvulnerable = isEnabled;
         Debug.Log("Is Invulnerable: " + isEnabled);
     }
-    public void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        
+        PowerUpBase powerUpBase = other.GetComponent<PowerUpBase>(); //Check if collide with any of the PowerUpBase Code
+        if (powerUpBase != null)
+        {
+            powerUpBase.ApplyEffect(this); //Call ApplyEffect from PowerUpBase
+            Destroy(powerUpBase.gameObject); //Destroy powerup
+        }
     }
 }

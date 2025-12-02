@@ -4,6 +4,6 @@ public class ShieldBuff : PowerUpBase
 {
     public override void ApplyEffect(Player player)
     {
-        player.SetInvulnerability(true);
+        if (!IsEffectActive) player.SetInvulnerability(true); //Check IsEffectActive then call player.SetInvulnerability
     }
 }
